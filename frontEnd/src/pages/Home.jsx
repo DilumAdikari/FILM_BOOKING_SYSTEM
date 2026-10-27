@@ -103,11 +103,21 @@ export default function Home() {
               key={room._id}
               className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-brand"
             >
-              <div className="relative flex h-40 items-end bg-gradient-to-br from-brand-light to-brand-dark p-5">
+              <div className="relative flex h-40 items-end overflow-hidden bg-gradient-to-br from-brand-light to-brand-dark p-5">
+                <img
+                  src={`/rooms/room-${index + 1}.jpg`}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/30 to-transparent" />
                 <span className="absolute left-4 top-4 rounded-full bg-white/10 px-3 py-1 text-xs text-indigo-100">
                   Room {index + 1}
                 </span>
-                <span className="text-2xl font-extrabold text-white/90">{room.name}</span>
+                <span className="relative text-2xl font-extrabold text-white/90">{room.name}</span>
               </div>
               <div className="flex flex-1 flex-col justify-between gap-4 p-5">
                 <div>
