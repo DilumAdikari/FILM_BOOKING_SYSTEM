@@ -6,6 +6,11 @@ const Admin = require('../models/Admin');
 const Room = require('../models/Room');
 const Booking = require('../models/Booking');
 const requireAdmin = require('../middleware/requireAdmin');
+const {
+  loginRateLimit,
+  recordLoginFailure,
+  clearLoginFailures,
+} = require('../middleware/loginRateLimit');
 const { toAdminBooking } = require('../utils/serialize');
 const { isValidDate } = require('../utils/time');
 
@@ -14,7 +19,7 @@ const router = express.Router();
 const STATUSES = ['confirmed', 'checked_in', 'cancelled'];
 
 // POST /api/admin/login
-router.post('/login', async (req, res) => {
+router.post('/login', loginRateLimit, async (req, res) => {
   const username = String((req.body && req.body.username) || '').trim().toLowerCase();
   const password = String((req.body && req.body.password) || '');
   if (!username || !password) {
@@ -24,8 +29,11 @@ router.post('/login', async (req, res) => {
   const admin = await Admin.findOne({ username });
   const ok = admin && (await bcrypt.compare(password, admin.passwordHash));
   if (!ok) {
+    recordLoginFailure(req);
     return res.status(401).json({ message: 'Invalid username or password' });
   }
+
+  clearLoginFailures(req);
 
   const token = jwt.sign({ sub: String(admin._id), role: 'admin' }, process.env.JWT_SECRET, {
     expiresIn: '8h',
