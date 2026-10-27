@@ -1,16 +1,56 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { Routes, Route, Link } from 'react-router-dom'
+import Layout from './components/Layout.jsx'
+import AdminRoute from './components/AdminRoute.jsx'
+import Home from './pages/Home.jsx'
+import BookRoom from './pages/BookRoom.jsx'
+import BookingDetails from './pages/BookingDetails.jsx'
+import CheckBooking from './pages/CheckBooking.jsx'
+import AdminLogin from './pages/AdminLogin.jsx'
+import AdminDashboard from './pages/AdminDashboard.jsx'
+
+function NotFound() {
+  return (
+    <div className="text-center py-20">
+      <h1 className="text-2xl font-semibold">Page not found</h1>
+      <Link to="/" className="inline-block mt-4 text-amber-400 hover:underline">
+        Back to rooms
+      </Link>
+    </div>
+  )
+}
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      
-    </>
+    <Routes>
+      <Route
+        path="/"
+        element={<Layout><Home /></Layout>}
+      />
+      <Route
+        path="/rooms/:id"
+        element={<Layout><BookRoom /></Layout>}
+      />
+      <Route
+        path="/booking/:code"
+        element={<Layout><BookingDetails /></Layout>}
+      />
+      <Route
+        path="/check"
+        element={<Layout><CheckBooking /></Layout>}
+      />
+
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route
+        path="/admin"
+        element={
+          <AdminRoute>
+            <AdminDashboard />
+          </AdminRoute>
+        }
+      />
+
+      <Route path="*" element={<Layout><NotFound /></Layout>} />
+    </Routes>
   )
 }
 
