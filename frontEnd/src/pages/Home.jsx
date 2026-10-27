@@ -34,7 +34,19 @@ export default function Home() {
   return (
     <div className="space-y-20 sm:space-y-28">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-light via-brand to-brand-dark px-6 py-14 text-center sm:px-12 sm:py-20">
+      <section className="relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-brand-light via-brand to-brand-dark px-6 py-14 text-center sm:px-12 sm:py-20">
+        {/* Background photo: put your image at frontEnd/public/hero-room.jpg */}
+        <img
+          src="/Hero.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 h-full w-full object-cover"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+        />
+        <div className="absolute inset-0 -z-10 bg-brand-dark/70" />
+
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">
           Private film rooms
         </p>
