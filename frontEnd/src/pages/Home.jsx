@@ -33,8 +33,9 @@ export default function Home() {
 
   return (
     <div className="space-y-20 sm:space-y-28">
-      {/* Hero */}
-      <section className="relative isolate left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-gradient-to-br from-brand-light via-brand to-brand-dark px-6 py-14 text-center sm:px-12 sm:py-20">        {/* Background photo: put your image at frontEnd/public/hero-room.jpg */}
+      {/* Hero (full width) */}
+      <section className="relative isolate left-1/2 flex min-h-[480px] w-screen -translate-x-1/2 flex-col justify-center overflow-hidden bg-gradient-to-br from-brand-light via-brand to-brand-dark px-6 py-16 text-center sm:min-h-[600px] sm:px-12 sm:py-24">
+        {/* Background photo: put your image at frontEnd/public/Hero.jpg */}
         <img
           src="/Hero.jpg"
           alt=""
