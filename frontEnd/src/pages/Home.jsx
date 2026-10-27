@@ -34,8 +34,7 @@ export default function Home() {
   return (
     <div className="space-y-20 sm:space-y-28">
       {/* Hero */}
-      <section className="relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-brand-light via-brand to-brand-dark px-6 py-14 text-center sm:px-12 sm:py-20">
-        {/* Background photo: put your image at frontEnd/public/hero-room.jpg */}
+      <section className="relative isolate left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-gradient-to-br from-brand-light via-brand to-brand-dark px-6 py-14 text-center sm:px-12 sm:py-20">        {/* Background photo: put your image at frontEnd/public/hero-room.jpg */}
         <img
           src="/Hero.jpg"
           alt=""
