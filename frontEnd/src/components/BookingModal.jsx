@@ -47,17 +47,17 @@ export default function BookingModal() {
       aria-modal="true"
       aria-label="Book a room"
       onClick={closeBooking}
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/70 p-4 backdrop-blur-sm sm:items-center sm:p-6"
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-900/60 p-4 backdrop-blur-sm sm:items-center sm:p-6"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-4xl rounded-3xl border border-white/10 bg-brand-dark p-5 text-white sm:p-8"
+        className="relative w-full max-w-4xl rounded-3xl border border-slate-200 bg-white p-5 text-slate-900 shadow-2xl sm:p-8"
       >
         <button
           type="button"
           onClick={closeBooking}
           aria-label="Close"
-          className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-xl hover:bg-white/20"
+          className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-xl text-slate-700 hover:bg-slate-200"
         >
           ×
         </button>
@@ -67,7 +67,7 @@ export default function BookingModal() {
             <button
               type="button"
               onClick={() => chooseRoom(null)}
-              className="mb-4 text-sm text-indigo-200/70 hover:text-amber-300"
+              className="mb-4 text-sm text-slate-500 hover:text-amber-600"
             >
               ← Choose another room
             </button>
@@ -75,15 +75,15 @@ export default function BookingModal() {
           </>
         ) : (
           <>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-600">
               Step 1 of 2
             </p>
-            <h2 className="mt-2 pr-12 text-2xl font-extrabold sm:text-3xl">Choose a room</h2>
-            <p className="mt-1 text-sm text-indigo-200/80">
+            <h2 className="mt-2 pr-12 font-serif text-2xl sm:text-3xl">Choose a room</h2>
+            <p className="mt-1 text-sm text-slate-600">
               Pick a room, then choose your date and time.
             </p>
 
-            {roomsError && <p className="mt-4 text-red-300">{roomsError}</p>}
+            {roomsError && <p className="mt-4 text-red-600">{roomsError}</p>}
 
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {rooms.map((room) => (
@@ -91,10 +91,10 @@ export default function BookingModal() {
                   key={room._id}
                   type="button"
                   onClick={() => chooseRoom(room._id)}
-                  className="rounded-2xl border border-white/10 bg-brand p-5 text-left transition-colors hover:border-amber-300"
+                  className="rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition-colors hover:border-amber-400"
                 >
-                  <span className="block text-lg font-bold">{room.name}</span>
-                  <span className="mt-1 block text-sm text-indigo-200/80">
+                  <span className="block font-serif text-lg">{room.name}</span>
+                  <span className="mt-1 block text-sm text-slate-500">
                     Up to {room.capacity} guests
                   </span>
                 </button>

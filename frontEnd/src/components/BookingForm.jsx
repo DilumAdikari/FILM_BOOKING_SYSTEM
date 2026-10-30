@@ -4,7 +4,8 @@ import { api } from '../lib/api.js'
 import { todayLocal, formatDate } from '../lib/date.js'
 
 const inputClass =
-   'w-full min-h-11 rounded-lg border border-white/25 bg-white/5 px-4 py-3 text-base text-white placeholder-indigo-300/50 focus:border-amber-300 focus:outline-none'
+  'w-full min-h-11 rounded-lg border border-slate-300 bg-white px-4 py-3 text-base text-slate-900 placeholder-slate-400 focus:border-amber-400 focus:outline-none'
+
 const emptyForm = { customerName: '', phone: '', email: '', guests: 1, notes: '' }
 
 export default function BookingForm({ roomId, onSuccess }) {
@@ -89,16 +90,16 @@ export default function BookingForm({ roomId, onSuccess }) {
     }
   }
 
-  if (roomError) return <p className="py-10 text-center text-red-300">{roomError}</p>
-  if (!room) return <p className="py-10 text-center text-indigo-200/70">Loading…</p>
+  if (roomError) return <p className="py-10 text-center text-red-600">{roomError}</p>
+  if (!room) return <p className="py-10 text-center text-slate-500">Loading…</p>
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <section>
-        <h1 className="text-3xl font-extrabold sm:text-4xl">{room.name}</h1>
-        <p className="mt-1 text-sm text-indigo-200/80">Up to {room.capacity} guests</p>
+        <h1 className="font-serif text-3xl text-slate-900 sm:text-4xl">{room.name}</h1>
+        <p className="mt-1 text-sm text-slate-600">Up to {room.capacity} guests</p>
 
-        <label className="mt-6 block text-sm font-medium text-indigo-100" htmlFor="date">
+        <label className="mt-6 block text-sm font-medium text-slate-700" htmlFor="date">
           Date
         </label>
         <input
@@ -110,21 +111,21 @@ export default function BookingForm({ roomId, onSuccess }) {
           className={`${inputClass} mt-2`}
         />
 
-        <h2 className="mt-6 text-sm font-medium text-indigo-100">
+        <h2 className="mt-6 text-sm font-medium text-slate-700">
           Time slot · {formatDate(date)}
         </h2>
-        {slotsLoading && <p className="mt-3 text-sm text-indigo-200/60">Checking availability…</p>}
+        {slotsLoading && <p className="mt-3 text-sm text-slate-500">Checking availability…</p>}
         <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {slots.map((slot) => {
             const isSelected = selectedSlot === slot.id
             const base = 'min-h-11 rounded-lg border px-4 py-3 text-left text-sm transition-colors'
             let style
             if (!slot.available) {
-              style = 'cursor-not-allowed border-white/5 bg-brand-dark/60 text-indigo-300/40 line-through'
+              style = 'cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400 line-through'
             } else if (isSelected) {
-              style = 'border-amber-300 bg-amber-300 font-semibold text-brand-dark'
+              style = 'border-amber-400 bg-amber-400 font-semibold text-slate-900'
             } else {
-              style = 'border-white/15 bg-brand hover:border-amber-300'
+              style = 'border-slate-300 bg-white text-slate-900 hover:border-amber-400'
             }
             return (
               <button
@@ -145,12 +146,12 @@ export default function BookingForm({ roomId, onSuccess }) {
       <section>
         <form
           onSubmit={handleSubmit}
-          className="space-y-4 rounded-2xl border border-white/10 bg-brand p-5 sm:p-6"
+          className="space-y-4 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6"
         >
-          <h2 className="text-lg font-semibold">Your details</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Your details</h2>
 
           <div>
-            <label className="mb-1 block text-sm text-indigo-100" htmlFor="customerName">
+            <label className="mb-1 block text-sm text-slate-700" htmlFor="customerName">
               Full name *
             </label>
             <input
@@ -166,7 +167,7 @@ export default function BookingForm({ roomId, onSuccess }) {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-sm text-indigo-100" htmlFor="phone">
+              <label className="mb-1 block text-sm text-slate-700" htmlFor="phone">
                 Phone *
               </label>
               <input
@@ -181,7 +182,7 @@ export default function BookingForm({ roomId, onSuccess }) {
               />
             </div>
             <div>
-              <label className="mb-1 block text-sm text-indigo-100" htmlFor="guests">
+              <label className="mb-1 block text-sm text-slate-700" htmlFor="guests">
                 Guests *
               </label>
               <input
@@ -200,7 +201,7 @@ export default function BookingForm({ roomId, onSuccess }) {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm text-indigo-100" htmlFor="email">
+            <label className="mb-1 block text-sm text-slate-700" htmlFor="email">
               Email (optional)
             </label>
             <input
@@ -215,7 +216,7 @@ export default function BookingForm({ roomId, onSuccess }) {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm text-indigo-100" htmlFor="notes">
+            <label className="mb-1 block text-sm text-slate-700" htmlFor="notes">
               Notes (optional)
             </label>
             <textarea
@@ -230,13 +231,13 @@ export default function BookingForm({ roomId, onSuccess }) {
           </div>
 
           {submitError && (
-            <p className="rounded-lg bg-red-950 px-4 py-3 text-sm text-red-300">{submitError}</p>
+            <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{submitError}</p>
           )}
 
           <button
             type="submit"
             disabled={submitting}
-            className="min-h-12 w-full rounded-full bg-amber-300 px-4 py-3 font-semibold text-brand-dark transition-colors hover:bg-amber-200 disabled:opacity-60"
+            className="min-h-12 w-full rounded-full bg-amber-400 px-4 py-3 font-semibold text-slate-900 transition-colors hover:bg-amber-300 disabled:opacity-60"
           >
             {submitting ? 'Booking…' : 'Confirm booking'}
           </button>

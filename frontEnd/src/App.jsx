@@ -12,9 +12,9 @@ import AdminDashboard from './pages/AdminDashboard.jsx'
 
 function NotFound() {
   return (
-    <div className="text-center py-20">
-      <h1 className="text-2xl font-semibold">Page not found</h1>
-      <Link to="/" className="inline-block mt-4 text-amber-300 hover:underline">
+    <div className="py-20 text-center">
+      <h1 className="font-serif text-3xl">Page not found</h1>
+      <Link to="/" className="mt-4 inline-block font-semibold text-amber-600 hover:underline">
         Back to rooms
       </Link>
     </div>

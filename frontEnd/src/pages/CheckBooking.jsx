@@ -29,8 +29,8 @@ export default function CheckBooking() {
 
   return (
     <div className="mx-auto max-w-md">
-      <h1 className="text-2xl font-bold sm:text-3xl">Find your booking</h1>
-      <p className="mt-2 text-sm text-neutral-400">
+      <h1 className="font-serif text-3xl sm:text-4xl">Find your booking</h1>
+      <p className="mt-2 text-sm text-slate-600">
         Enter the booking code you received to see your QR code and details.
       </p>
 
@@ -42,15 +42,15 @@ export default function CheckBooking() {
           autoCapitalize="characters"
           autoComplete="off"
           spellCheck={false}
-          className="w-full min-h-12 rounded-lg border border-neutral-700 bg-neutral-900 px-4 py-3 text-center font-mono text-lg uppercase tracking-widest text-neutral-100 placeholder-neutral-600 focus:border-amber-400 focus:outline-none"
+          className="w-full min-h-12 rounded-lg border border-slate-300 bg-white px-4 py-3 text-center font-mono text-lg uppercase tracking-widest text-slate-900 placeholder-slate-400 focus:border-amber-400 focus:outline-none"
         />
         {error && (
-          <p className="rounded-lg bg-red-950 px-4 py-3 text-sm text-red-300">{error}</p>
+          <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
         )}
         <button
           type="submit"
           disabled={loading}
-          className="min-h-12 w-full rounded-lg bg-amber-400 px-4 py-3 font-semibold text-neutral-950 hover:bg-amber-300 disabled:opacity-60"
+          className="min-h-12 w-full rounded-full bg-amber-400 px-4 py-3 font-semibold text-slate-900 hover:bg-amber-300 disabled:opacity-60"
         >
           {loading ? 'Searching…' : 'Show my booking'}
         </button>
