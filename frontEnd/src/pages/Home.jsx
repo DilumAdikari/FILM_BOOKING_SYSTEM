@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../lib/api.js'
+import Reveal from '../components/Reveal.jsx'
 
 const FEATURES = ['Private rooms', 'Up to 6 guests', 'Instant QR booking', 'Flexible time slots']
 
@@ -87,53 +88,54 @@ export default function Home() {
 
       {/* Rooms */}
       <section id="rooms" className="scroll-mt-28">
-        <div className="mb-8 text-center sm:mb-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">
-            Choose your room
-          </p>
-          <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Pick your screen</h2>
-        </div>
+        <Reveal>
+          <div className="mb-8 text-center sm:mb-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">
+              Choose your room
+            </p>
+            <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Pick your screen</h2>
+          </div>
+        </Reveal>
 
         {loading && <p className="text-center text-indigo-200/70">Loading rooms…</p>}
         {error && <p className="text-center text-red-300">{error}</p>}
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {rooms.map((room, index) => (
-            <article
-              key={room._id}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-brand"
-            >
-              <div className="relative flex h-40 items-end overflow-hidden bg-gradient-to-br from-brand-light to-brand-dark p-5">
-                <img
-                  src={`/rooms/room-${index + 1}.jpg`}
-                  alt=""
-                  aria-hidden="true"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none'
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/30 to-transparent" />
-                <span className="absolute left-4 top-4 rounded-full bg-white/10 px-3 py-1 text-xs text-indigo-100">
-                  Room {index + 1}
-                </span>
-                <span className="relative text-2xl font-extrabold text-white/90">{room.name}</span>
-              </div>
-              <div className="flex flex-1 flex-col justify-between gap-4 p-5">
-                <div>
-                  <p className="text-sm text-indigo-200/80">Up to {room.capacity} guests</p>
-                  {room.description && (
-                    <p className="mt-2 text-sm text-indigo-100/80">{room.description}</p>
-                  )}
+            <Reveal key={room._id} delay={(index % 3) * 120} className="h-full">
+              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-brand">
+                <div className="relative flex h-40 items-end overflow-hidden bg-gradient-to-br from-brand-light to-brand-dark p-5">
+                  <img
+                    src={`/rooms/room-${index + 1}.jpg`}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/30 to-transparent" />
+                  <span className="absolute left-4 top-4 rounded-full bg-white/10 px-3 py-1 text-xs text-indigo-100">
+                    Room {index + 1}
+                  </span>
+                  <span className="relative text-2xl font-extrabold text-white/90">{room.name}</span>
                 </div>
-                <Link
-                  to={`/rooms/${room._id}`}
-                  className="inline-flex min-h-11 items-center justify-center rounded-full bg-amber-300 px-4 font-semibold text-brand-dark transition-colors hover:bg-amber-200"
-                >
-                  Book now
-                </Link>
-              </div>
-            </article>
+                <div className="flex flex-1 flex-col justify-between gap-4 p-5">
+                  <div>
+                    <p className="text-sm text-indigo-200/80">Up to {room.capacity} guests</p>
+                    {room.description && (
+                      <p className="mt-2 text-sm text-indigo-100/80">{room.description}</p>
+                    )}
+                  </div>
+                  <Link
+                    to={`/rooms/${room._id}`}
+                    className="inline-flex min-h-11 items-center justify-center rounded-full bg-amber-300 px-4 font-semibold text-brand-dark transition-colors hover:bg-amber-200"
+                  >
+                    Book now
+                  </Link>
+                </div>
+              </article>
+            </Reveal>
           ))}
         </div>
 
@@ -144,36 +146,42 @@ export default function Home() {
 
       {/* How it works */}
       <section id="how-it-works" className="scroll-mt-28">
-        <div className="mb-8 text-center sm:mb-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">
-            How it works
-          </p>
-          <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Three simple steps</h2>
-        </div>
+        <Reveal>
+          <div className="mb-8 text-center sm:mb-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">
+              How it works
+            </p>
+            <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Three simple steps</h2>
+          </div>
+        </Reveal>
         <ol className="grid gap-5 sm:grid-cols-3">
           {STEPS.map((step, i) => (
-            <li key={step.title} className="rounded-2xl border border-white/10 bg-brand p-6">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-300 font-bold text-brand-dark">
-                {i + 1}
-              </span>
-              <h3 className="mt-4 text-lg font-semibold">{step.title}</h3>
-              <p className="mt-2 text-sm text-indigo-100/80">{step.text}</p>
-            </li>
+            <Reveal key={step.title} delay={i * 120} className="h-full">
+              <li className="h-full rounded-2xl border border-white/10 bg-brand p-6">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-300 font-bold text-brand-dark">
+                  {i + 1}
+                </span>
+                <h3 className="mt-4 text-lg font-semibold">{step.title}</h3>
+                <p className="mt-2 text-sm text-indigo-100/80">{step.text}</p>
+              </li>
+            </Reveal>
           ))}
         </ol>
       </section>
 
       {/* Closing CTA */}
-      <section className="rounded-3xl border border-white/10 bg-brand px-6 py-12 text-center sm:py-16">
-        <h2 className="text-2xl font-extrabold sm:text-3xl">Ready for movie night?</h2>
-        <p className="mt-2 text-indigo-100/80">Choose a room and time, and you are all set.</p>
-        <a
-          href="#rooms"
-          className="mt-6 inline-flex min-h-12 items-center justify-center rounded-full bg-amber-300 px-8 font-semibold text-brand-dark hover:bg-amber-200"
-        >
-          Book now
-        </a>
-      </section>
+      <Reveal>
+        <section className="rounded-3xl border border-white/10 bg-brand px-6 py-12 text-center sm:py-16">
+          <h2 className="text-2xl font-extrabold sm:text-3xl">Ready for movie night?</h2>
+          <p className="mt-2 text-indigo-100/80">Choose a room and time, and you are all set.</p>
+          <a
+            href="#rooms"
+            className="mt-6 inline-flex min-h-12 items-center justify-center rounded-full bg-amber-300 px-8 font-semibold text-brand-dark hover:bg-amber-200"
+          >
+            Book now
+          </a>
+        </section>
+      </Reveal>
     </div>
   )
 }

@@ -1,6 +1,8 @@
 import { Routes, Route, Link } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 import AdminRoute from './components/AdminRoute.jsx'
+import BookingModal from './components/BookingModal.jsx'
+import { BookingProvider } from './context/BookingContext.jsx'
 import Home from './pages/Home.jsx'
 import BookRoom from './pages/BookRoom.jsx'
 import BookingDetails from './pages/BookingDetails.jsx'
@@ -12,7 +14,7 @@ function NotFound() {
   return (
     <div className="text-center py-20">
       <h1 className="text-2xl font-semibold">Page not found</h1>
-      <Link to="/" className="inline-block mt-4 text-amber-400 hover:underline">
+      <Link to="/" className="inline-block mt-4 text-amber-300 hover:underline">
         Back to rooms
       </Link>
     </div>
@@ -21,36 +23,28 @@ function NotFound() {
 
 function App() {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={<Layout><Home /></Layout>}
-      />
-      <Route
-        path="/rooms/:id"
-        element={<Layout><BookRoom /></Layout>}
-      />
-      <Route
-        path="/booking/:code"
-        element={<Layout><BookingDetails /></Layout>}
-      />
-      <Route
-        path="/check"
-        element={<Layout><CheckBooking /></Layout>}
-      />
+    <BookingProvider>
+      <Routes>
+        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/rooms/:id" element={<Layout><BookRoom /></Layout>} />
+        <Route path="/booking/:code" element={<Layout><BookingDetails /></Layout>} />
+        <Route path="/check" element={<Layout><CheckBooking /></Layout>} />
 
-      <Route path="/admin/login" element={<AdminLogin />} />
-      <Route
-        path="/admin"
-        element={
-          <AdminRoute>
-            <AdminDashboard />
-          </AdminRoute>
-        }
-      />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
 
-      <Route path="*" element={<Layout><NotFound /></Layout>} />
-    </Routes>
+        <Route path="*" element={<Layout><NotFound /></Layout>} />
+      </Routes>
+
+      <BookingModal />
+    </BookingProvider>
   )
 }
 

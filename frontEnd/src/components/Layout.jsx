@@ -1,11 +1,14 @@
 import { Link, NavLink } from 'react-router-dom'
+import { useBooking } from '../context/BookingContext.jsx'
 
 const navClass = ({ isActive }) =>
   `px-2 py-1 transition-colors ${isActive ? 'text-amber-300' : 'text-indigo-100/80 hover:text-white'}`
 
 export default function Layout({ children }) {
+  const { openBooking } = useBooking()
+
   return (
-    <div className="flex min-h-screen flex-col bg-brand-dark text-white">
+    <div className="flex min-h-screen flex-col overflow-x-clip bg-brand-dark text-white">
       <header className="sticky top-0 z-20 border-b border-white/10 bg-brand-dark/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
           <Link to="/" className="text-lg font-extrabold tracking-[0.2em] text-white">
@@ -31,12 +34,13 @@ export default function Layout({ children }) {
             <span className="hidden text-xs text-indigo-200/70 lg:block">
               Open daily 9:00 AM – 11:30 PM
             </span>
-            <a
-              href="/#rooms"
+            <button
+              type="button"
+              onClick={() => openBooking()}
               className="inline-flex min-h-10 items-center rounded-full bg-amber-300 px-4 text-sm font-semibold text-brand-dark hover:bg-amber-200"
             >
               Book a room
-            </a>
+            </button>
           </div>
         </div>
 
