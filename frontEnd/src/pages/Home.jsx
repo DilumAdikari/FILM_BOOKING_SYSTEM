@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import { api } from '../lib/api.js'
 import Reveal from '../components/Reveal.jsx'
 
-const FEATURES = ['Private rooms', 'Up to 6 guests', 'Instant QR booking', 'Flexible time slots']
-
 const STEPS = [
   {
     title: 'Choose a room and time',
@@ -32,10 +30,12 @@ export default function Home() {
       .finally(() => setLoading(false))
   }, [])
 
+  const featured = rooms[0]
+
   return (
     <div className="space-y-20 sm:space-y-28">
-      {/* Hero (full width) */}
-      <section className="relative isolate left-1/2 flex min-h-[480px] w-screen -translate-x-1/2 flex-col justify-center overflow-hidden bg-gradient-to-br from-brand-light via-brand to-brand-dark px-6 py-16 text-center sm:min-h-[600px] sm:px-12 sm:py-24">
+      {/* Hero (full width, tall) */}
+      <section className="relative isolate -mt-8 left-1/2 flex min-h-[70vh] w-screen -translate-x-1/2 flex-col justify-center overflow-hidden text-white sm:-mt-12 sm:min-h-[640px]">
         {/* Background photo: put your image at frontEnd/public/Hero.jpg */}
         <img
           src="/Hero.jpg"
@@ -46,44 +46,62 @@ export default function Home() {
             e.currentTarget.style.display = 'none'
           }}
         />
-        <div className="absolute inset-0 -z-10 bg-brand-dark/70" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-brand-dark/85 via-brand-dark/50 to-brand-dark/10" />
+        {/* Decorative dashed route line */}
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-40"
+          viewBox="0 0 1000 800"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M640 0 C 380 120, 780 260, 580 420 S 720 640, 900 800"
+            fill="none"
+            stroke="white"
+            strokeWidth="1.5"
+            strokeDasharray="6 8"
+          />
+        </svg>
 
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">
-          Private film rooms
-        </p>
-        <h1 className="mx-auto mt-4 max-w-3xl text-4xl font-extrabold leading-tight sm:text-6xl">
-          Your movie, <em className="font-serif font-normal italic text-amber-300">your</em> room.
-        </h1>
-        <p className="mx-auto mt-5 max-w-xl text-base text-indigo-100/80 sm:text-lg">
-          Book a private room for friends, family or a date night. Pick a time that suits you and
-          get your QR code in seconds.
-        </p>
+        <div className="mx-auto w-full max-w-6xl px-4 pb-14 sm:px-6 sm:pb-20">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">
+            Private film rooms
+          </p>
+          <h1 className="mt-4 max-w-3xl font-serif text-5xl font-normal leading-[1.05] sm:text-7xl">
+            Your movie, <em className="text-amber-300">your</em> room.
+          </h1>
+          <p className="mt-6 max-w-xl text-base text-indigo-100/85 sm:text-lg">
+            Book a private room for friends, family or a date night. Pick a time that suits you and
+            get your QR code in seconds.
+          </p>
 
-        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <a
-            href="#rooms"
-            className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-amber-300 px-8 font-semibold text-brand-dark hover:bg-amber-200 sm:w-auto"
-          >
-            Book a room now
-          </a>
-          <Link
-            to="/check"
-            className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/30 px-8 font-semibold hover:border-white sm:w-auto"
-          >
-            I already have a code
-          </Link>
-        </div>
-
-        <ul className="mx-auto mt-10 flex max-w-2xl flex-wrap justify-center gap-2">
-          {FEATURES.map((f) => (
-            <li
-              key={f}
-              className="rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs text-indigo-100 sm:text-sm"
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#rooms"
+              className="inline-flex min-h-12 items-center justify-center rounded-full bg-amber-300 px-8 font-semibold text-brand-dark hover:bg-amber-200 sm:w-auto"
             >
-              {f}
-            </li>
-          ))}
-        </ul>
+              Book a room now
+            </a>
+            <Link
+              to="/check"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/40 px-8 font-semibold hover:border-white sm:w-auto"
+            >
+              I already have a code
+            </Link>
+          </div>
+
+          {/* Featured room card */}
+          {featured && (
+            <Link
+              to={`/rooms/${featured._id}`}
+              className="mt-10 inline-flex max-w-sm flex-col rounded-2xl border border-white/15 bg-brand/90 p-5 backdrop-blur transition-colors hover:border-amber-300"
+            >
+              <span className="text-xs uppercase tracking-[0.25em] text-amber-300">Featured room</span>
+              <span className="mt-2 font-serif text-2xl">{featured.name}</span>
+              <span className="mt-1 text-sm text-indigo-100/80">Up to {featured.capacity} guests</span>
+            </Link>
+          )}
+        </div>
       </section>
 
       {/* Rooms */}
@@ -93,7 +111,7 @@ export default function Home() {
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">
               Choose your room
             </p>
-            <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Pick your screen</h2>
+            <h2 className="mt-2 font-serif text-3xl font-normal sm:text-5xl">Pick your screen</h2>
           </div>
         </Reveal>
 
@@ -118,7 +136,7 @@ export default function Home() {
                   <span className="absolute left-4 top-4 rounded-full bg-white/10 px-3 py-1 text-xs text-indigo-100">
                     Room {index + 1}
                   </span>
-                  <span className="relative text-2xl font-extrabold text-white/90">{room.name}</span>
+                  <span className="relative font-serif text-2xl text-white/90">{room.name}</span>
                 </div>
                 <div className="flex flex-1 flex-col justify-between gap-4 p-5">
                   <div>
@@ -151,7 +169,7 @@ export default function Home() {
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">
               How it works
             </p>
-            <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Three simple steps</h2>
+            <h2 className="mt-2 font-serif text-3xl font-normal sm:text-5xl">Three simple steps</h2>
           </div>
         </Reveal>
         <ol className="grid gap-5 sm:grid-cols-3">
@@ -172,7 +190,7 @@ export default function Home() {
       {/* Closing CTA */}
       <Reveal>
         <section className="rounded-3xl border border-white/10 bg-brand px-6 py-12 text-center sm:py-16">
-          <h2 className="text-2xl font-extrabold sm:text-3xl">Ready for movie night?</h2>
+          <h2 className="font-serif text-3xl font-normal sm:text-4xl">Ready for movie night?</h2>
           <p className="mt-2 text-indigo-100/80">Choose a room and time, and you are all set.</p>
           <a
             href="#rooms"

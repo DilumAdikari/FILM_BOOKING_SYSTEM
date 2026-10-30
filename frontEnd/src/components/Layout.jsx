@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useBooking } from '../context/BookingContext.jsx'
 
 const navClass = ({ isActive }) =>
@@ -6,10 +6,18 @@ const navClass = ({ isActive }) =>
 
 export default function Layout({ children }) {
   const { openBooking } = useBooking()
+  const { pathname } = useLocation()
+  const isHome = pathname === '/'
+
+  // Home: transparent header floating over the hero photo.
+  // Other pages: solid sticky header.
+  const headerClass = isHome
+    ? 'absolute inset-x-0 top-0 z-20 bg-gradient-to-b from-brand-dark/80 via-brand-dark/30 to-transparent'
+    : 'sticky top-0 z-20 border-b border-white/10 bg-brand-dark/90 backdrop-blur'
 
   return (
     <div className="flex min-h-screen flex-col overflow-x-clip bg-brand-dark text-white">
-      <header className="sticky top-0 z-20 border-b border-white/10 bg-brand-dark/90 backdrop-blur">
+      <header className={headerClass}>
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
           <Link to="/" className="text-lg font-extrabold tracking-[0.2em] text-white">
             FILM<span className="text-amber-300"> ROOM</span>
@@ -45,7 +53,11 @@ export default function Layout({ children }) {
         </div>
 
         {/* Mobile links */}
-        <nav className="flex justify-center gap-4 border-t border-white/10 py-2 text-xs md:hidden">
+        <nav
+          className={`flex justify-center gap-4 py-2 text-xs md:hidden ${
+            isHome ? '' : 'border-t border-white/10'
+          }`}
+        >
           <NavLink to="/" end className={navClass}>
             Home
           </NavLink>
