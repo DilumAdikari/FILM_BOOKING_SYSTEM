@@ -4,9 +4,9 @@ import { api } from '../lib/api.js'
 import { formatDate } from '../lib/date.js'
 
 const STATUS_LABEL = {
-  confirmed: { text: 'Confirmed', cls: 'bg-emerald-900 text-emerald-300' },
-  checked_in: { text: 'Checked in', cls: 'bg-sky-900 text-sky-300' },
-  cancelled: { text: 'Cancelled', cls: 'bg-red-950 text-red-300' },
+  confirmed: { text: 'Confirmed', cls: 'bg-emerald-100 text-emerald-800' },
+  checked_in: { text: 'Checked in', cls: 'bg-sky-100 text-sky-800' },
+  cancelled: { text: 'Cancelled', cls: 'bg-red-100 text-red-700' },
 }
 
 export default function BookingDetails() {
@@ -23,42 +23,42 @@ export default function BookingDetails() {
   if (error) {
     return (
       <div className="py-16 text-center">
-        <p className="text-red-400">{error}</p>
-        <Link to="/check" className="mt-4 inline-block text-amber-400 hover:underline">
+        <p className="text-red-600">{error}</p>
+        <Link to="/check" className="mt-4 inline-block font-semibold text-amber-600 hover:underline">
           Try another code
         </Link>
       </div>
     )
   }
-  if (!booking) return <p className="text-neutral-400">Loading booking…</p>
+  if (!booking) return <p className="text-center text-slate-500">Loading booking…</p>
 
   const status = STATUS_LABEL[booking.status] || STATUS_LABEL.confirmed
 
   return (
     <div className="mx-auto max-w-xl">
-      <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-5 sm:p-8">
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8">
         <div className="flex items-center justify-between gap-3">
-          <h1 className="text-xl font-bold sm:text-2xl">Your booking</h1>
+          <h1 className="font-serif text-2xl sm:text-3xl">Your booking</h1>
           <span className={`rounded-full px-3 py-1 text-xs font-semibold ${status.cls}`}>
             {status.text}
           </span>
         </div>
 
-        <div className="mt-6 flex flex-col items-center rounded-xl bg-white p-4">
+        <div className="mt-6 flex flex-col items-center rounded-xl border border-slate-200 bg-white p-4">
           <img
             src={booking.qrDataUrl}
             alt={`QR code for booking ${booking.bookingCode}`}
             className="h-auto w-full max-w-60"
           />
-          <p className="mt-3 font-mono text-lg tracking-widest text-neutral-900">
+          <p className="mt-3 font-mono text-lg tracking-widest text-slate-900">
             {booking.bookingCode}
           </p>
         </div>
-        <p className="mt-3 text-center text-sm text-neutral-400">
+        <p className="mt-3 text-center text-sm text-slate-500">
           Show this QR code or booking code at the entrance.
         </p>
 
-        <dl className="mt-6 divide-y divide-neutral-800 text-sm">
+        <dl className="mt-6 divide-y divide-slate-200 text-sm">
           <Row label="Room" value={booking.room?.name} />
           <Row label="Date" value={formatDate(booking.date)} />
           <Row label="Time" value={booking.slotLabel} />
@@ -71,13 +71,13 @@ export default function BookingDetails() {
           <button
             type="button"
             onClick={() => window.print()}
-            className="min-h-11 flex-1 rounded-lg border border-neutral-700 px-4 py-3 font-medium hover:border-amber-400"
+            className="min-h-11 flex-1 rounded-full border border-slate-300 px-4 py-3 font-medium text-slate-900 hover:border-amber-400"
           >
             Print
           </button>
           <Link
             to="/"
-            className="flex min-h-11 flex-1 items-center justify-center rounded-lg bg-amber-400 px-4 py-3 font-semibold text-neutral-950 hover:bg-amber-300"
+            className="flex min-h-11 flex-1 items-center justify-center rounded-full bg-amber-400 px-4 py-3 font-semibold text-slate-900 hover:bg-amber-300"
           >
             Book another room
           </Link>
@@ -90,8 +90,8 @@ export default function BookingDetails() {
 function Row({ label, value }) {
   return (
     <div className="flex justify-between gap-4 py-3">
-      <dt className="text-neutral-400">{label}</dt>
-      <dd className="text-right font-medium">{value}</dd>
+      <dt className="text-slate-500">{label}</dt>
+      <dd className="text-right font-medium text-slate-900">{value}</dd>
     </div>
   )
 }
